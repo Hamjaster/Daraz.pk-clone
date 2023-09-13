@@ -1,0 +1,128 @@
+#app {
+  height: 100%;
+}
+
+:root {
+  --toastify-color-success: rgba(247, 114, 20, 1);
+  --toastify-icon-color-success: rgba(247, 114, 20, 1);
+}
+
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+body {
+  background: #eee;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  display: 'hidden'
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+
+
+
+
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+
+.mySwiper2 {
+  height: 50%;
+  width: 100%;
+}
+
+.mySwiper {
+  height: 15%;
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+
+.mySwiper .swiper-slide {
+  width: 25%;
+  height: 100%;
+  opacity: 0.4;
+}
+
+.mySwiper .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel .thumb.selected,
+.carousel .thumb:hover {
+  border: 1px solid #f57224 !important;
+}
+
+.form-input:focus {
+  border: solid blue 2px;
+}
+
+.paymentInput {
+  border: solid 1px rgb(64, 42, 0);
+  padding: 16px 20px;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 28px;
+}
+
+.PrivateValueLabel-circle-24 {
+  background: rgb(234 88 12 /1) !important;
+}
+
+.MuiSlider-thumb {
+  background: rgb(234 88 12 /1) !important;
+}
+
+.MuiSlider-root {
+  color: rgb(234 88 12 /1) !important;
+}
