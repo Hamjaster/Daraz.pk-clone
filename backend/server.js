@@ -12,7 +12,9 @@ const cors = require('cors');
 require('dotenv').config();
 
 
-app.use(cors());
+app.use(cors({
+    origin: '*'
+}));
 connectDB()
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,11 +22,11 @@ app.use(express.json())
 
 
 // Uncaught exception error handling
-// process.on('uncaughtException', (err) => {
-//     console.log("Error :", err.message)
-//     console.log('Shutting server as uncaught exception error')
-//     process.exit(1)
-// })
+process.on('uncaughtException', (err) => {
+    console.log("Error :", err.message)
+    console.log('Shutting server as uncaught exception error')
+    process.exit(1)
+})
 
 
 app.get('/', (req, res) => {
@@ -38,9 +40,7 @@ app.use('/order', orderRoutes)
 app.use('/payment', paymentRoutes)
 
 
-const server = app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+app.listen(port)
 
 
 // Unhandled Reject error handling
