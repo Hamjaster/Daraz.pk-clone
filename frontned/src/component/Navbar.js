@@ -8,9 +8,14 @@ import icon from '../images/icon.png'
 
 export default function Navbar() {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const { keyword, setKeyword, user } = useContext(Context)
+    const { keyword, setKeyword, user, setUser } = useContext(Context)
     const navigate = useNavigate()
+    const logout = () => {
+        setUser({})
+        localStorage.removeItem('userInfo')
+        navigate('/form')
 
+    }
     return (
         <div className='flex  w-full text-md bg-orange-600 px-3 py-3 text-white space-x-4 flex-row justify-between items-center'>
 
@@ -34,6 +39,10 @@ export default function Navbar() {
                         onOpen()
                     }
                 }} className="item">Create a Product</div>
+                {user && user.name ?
+                    <div onClick={logout} className='item'>Logout</div>
+                    : <Link className='item' to={'/form'}>Login/Register</Link>
+                }
                 <div className="cart">
                     <CartDrawer />
                 </div>

@@ -66,29 +66,34 @@ export default function CreateProductModal({ isOpen, onClose, onOpen }) {
     };
 
     const createProduct = async () => {
-        try {
-            const { data } = await axios.post('http://localhost:5000/product/create', {
-                name: Name,
-                price,
-                desc,
-                category,
-                Images,
-                stock
-            })
-            console.log(data)
-            setName('')
-            setPrice(0)
-            setImages([])
-            handleOnClear()
-            setdesc('')
-            setLoading(false)
-            onClose()
-            setCount(count + 1)
-            showToast('success', 'Your Product is live!')
-        } catch (error) {
-            console.log(error)
-            setLoading(false)
-            showToast('error', error)
+        if (!Name || !price) {
+            showToast('error', 'You have left fields missing')
+        } else {
+
+            try {
+                const { data } = await axios.post('http://localhost:5000/product/create', {
+                    name: Name,
+                    price,
+                    desc,
+                    category,
+                    Images,
+                    stock
+                })
+                console.log(data)
+                setName('')
+                setPrice(0)
+                setImages([])
+                handleOnClear()
+                setdesc('')
+                setLoading(false)
+                onClose()
+                setCount(count + 1)
+                showToast('success', 'Your Product is live!')
+            } catch (error) {
+                console.log(error)
+                setLoading(false)
+                showToast('error', error)
+            }
         }
     }
 

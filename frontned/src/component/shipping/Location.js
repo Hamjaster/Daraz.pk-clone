@@ -10,6 +10,7 @@ import { City, Country, State } from 'country-state-city'
 import SelectInput from '../select/Select';
 import { useNavigate } from 'react-router-dom';
 import SteppeR from '../select/SteppeR';
+import { showToast } from '../utils/Toast';
 
 
 export default function Location() {
@@ -98,10 +99,10 @@ export default function Location() {
                             {/* Order BTN */}
                             <div className="button flex items-end justify-end w-full float-right">
                                 <Button onClick={() => {
-                                    if (selectedCity && selectedCountry && selectedState) {
+                                    if (selectedCountry) {
                                         navigate('/shipping/order')
                                     } else {
-                                        alert('Fill out all fields')
+                                        showToast('warning', 'Fill out fields')
                                     }
                                 }} colorScheme='orange'>Order Now</Button>
                             </div>

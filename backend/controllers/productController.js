@@ -5,7 +5,7 @@ const { ApiFeautres } = require('../utils/apiFeautures')
 
 // Get all products
 const getAllProducts = async (req, res) => {
-    let resultPerPage = 8
+    let resultPerPage = 100
     const apiFeautres = new ApiFeautres(Product.find(), req.query).search().searchByPrice().searchByCategory().pagination(resultPerPage)
 
     try {

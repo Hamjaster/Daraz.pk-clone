@@ -4,6 +4,7 @@ import tech from '../images/tech.png'
 import grocery from '../images/grocery.png'
 import beauty from '../images/beauty.png'
 import sports from '../images/sports.png'
+import edu from '../images/education.png'
 import axios from "axios";
 export const Context = createContext('')
 
@@ -74,7 +75,7 @@ export const ContextProvider = ({ children }) => {
         {
             name: 'Education/Household',
             id: 3,
-            img: sports
+            img: edu
         },
         {
             name: 'Health/Fitness',

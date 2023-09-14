@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import { Spinner } from '@chakra-ui/react'
 import { Button, ButtonGroup } from '@chakra-ui/react'
 import { use } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { auth, continueWithGoogle } from './firebase/Firebase'
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { AiOutlineGoogle } from 'react-icons/ai'
+import { Context } from '../context/contextApi'
 
 export default function Register() {
     const proxy = 'http://127.0.0.1:3000'
@@ -14,6 +18,9 @@ export default function Register() {
     const [loading, setLoading] = useState('')
     const navigate = useNavigate()
     const location = useLocation()
+    const provider = new GoogleAuthProvider()
+    const { user, setUser } = useContext(Context)
+
     const uploadPic = (pic) => {
 
         setLoading(true)
@@ -50,7 +57,7 @@ export default function Register() {
 
     const register = async () => {
         try {
-            const { data } = await axios.post(`${proxy}/user/register`, { name, email, password, pic })
+            const { data } = await axios.post(`http://localhost:5000/user/register`, { name, email, password, pic })
 
             localStorage.setItem('userInfo', JSON.stringify(data));
             if (location.state?.redirect) {
@@ -63,19 +70,41 @@ export default function Register() {
         }
     }
 
-    const registerAsGuest = async () => {
+    const continueWithGugle = async () => {
         try {
-            const { data } = await axios.post(`${proxy}/user/login`,
-                { email: 'guest@gmail.com', password: 'guest' })
-            localStorage.setItem('userInfo', JSON.stringify(data));
-            if (location.state?.redirect) {
-                navigate(location.state.redirect);
-            } else {
-                navigate('/home');
+            const { user } = await signInWithPopup(auth, provider)
+            if (!user) return;
+            var name = user.displayName
+            var email = user.email
+            var pic = user.photoURL
+
+            console.log(user)
+            if (!name && !email) return;
+            try {
+                const { data } = await axios.post(`http://localhost:5000/user/google`, { name, email, pic })
+                console.log(data)
+                localStorage.setItem('userInfo', JSON.stringify(data));
+                setUser(data)
+                if (location.state?.redirect) {
+                    navigate(location.state.redirect);
+                } else {
+                    navigate('/');
+                }
+            } catch (error) {
+                console.log(error);
             }
+
         } catch (error) {
-            console.log(error);
+            if (error.code === 'auth/popup-closed-by-user') {
+                // User closed the popup without signing in
+                console.log('User closed the sign-in popup');
+            } else {
+                // Other error occurred
+                console.error('Error signing in:', error);
+            }
         }
+
+
     }
 
     return (
@@ -130,9 +159,14 @@ export default function Register() {
                                     Create an account
                                 </Button>
 
-                                <Button isLoading={loading}
-                                    onClick={registerAsGuest} colorScheme='blue' w={'full'}>
-                                    Continue as Guest
+                                <Button colorScheme='blue' isLoading={loading}
+                                    onClick={continueWithGugle} w={'full'}>
+                                    <div className="flex w-full flex-row justify-start space-x-20 items-center">
+                                        <div className="text-2xl">
+                                            <AiOutlineGoogle />
+                                        </div>
+                                        <span>Continue with Google</span>
+                                    </div>
                                 </Button>
 
                             </form>

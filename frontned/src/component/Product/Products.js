@@ -51,7 +51,7 @@ export default function Products() {
 
                 <div className="price w-full md:w-auto space-x-1 md:space-x-3  flex flex-col-reverse items-center">
 
-                    <div className="font-medium w-full text-center text-xl ">Select Price</div>
+                    <div className="font-medium w-full text-center text-md hidden sm:block#4R5EAAAADwz R sm:text-xl ">Select Price</div>
                     <div className="slider md:mt-3 w-10/12 md:w-44  mx-auto">
                         <Slider
                             getAriaLabel={() => 'Price range'}
@@ -65,13 +65,13 @@ export default function Products() {
 
                 </div>
 
-                <div className="categories py-3 pb-9 sm:py-0 sm:pb-9 md:pb-0 w-full justify-evenly flex flex-row [&_.image]:w-28 [&_div]:cursor-pointer  ">
+                <div className="categories py-0 pb-9 sm:py-0 sm:pb-9 md:pb-0 w-full justify-evenly flex flex-row [&_.image]:w-28 [&_div]:cursor-pointer  ">
 
                     {categories.map((c) => {
                         return <div onClick={(e) => {
                             setCategory(c.name)
                         }} className={`${category === c.name ? 'border-b border-b-orange-500' : ''}  img sm:py-5 sm:px-1 lg:px-6   space-y-2  items-center flex flex-col`}>
-                            <img src={c.img} className='w-10 sm:w-16 md:w-24' alt="" />
+                            <img src={c.img} className='w-12 sm:w-16 md:w-24' alt="" />
                             <div className="text-[10px] sm:text-[12px] lg:text-lg mx-auto font-semibold text-center">{c.name}</div>
                         </div>
                     })}
@@ -89,7 +89,7 @@ export default function Products() {
 
             {/* All Products here */}
             {loading
-                ? <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-3 lg:mx-20 py-10">
+                ? <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 lg:mx-20 py-10">
                     <Skeleton height='16rem' width='13rem' />
                     <Skeleton height='16rem' width='13rem' />
                     <Skeleton height='16rem' width='13rem' />

@@ -14,10 +14,10 @@ root.render(
   <BrowserRouter>
     <ContextProvider>
       <ChakraProvider>
-        <React.StrictMode>
-          <ToastContainer />
-          <App />
-        </React.StrictMode>
+
+        <ToastContainer />
+        <App />
+
       </ChakraProvider>
     </ContextProvider>
   </BrowserRouter>

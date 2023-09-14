@@ -51,7 +51,7 @@ export default function ProductDetails() {
         }
     }
 
-    const addToCart = async (BUY) => {
+    const addToCart = async () => {
         let isAlreadyInCart;
         try {
             const { data } = await axios.get(`http://localhost:5000/product/${id}`)
@@ -66,20 +66,19 @@ export default function ProductDetails() {
             console.log(isAlreadyInCart)
             if (isAlreadyInCart) {
                 showToast('warning', 'Product is already in cart')
-            };
+            } else {
+                setCart((c) => {
+                    return [...c, {
+                        id: data.product._id,
+                        name: data.product.name,
+                        price: data.product.price,
+                        img: data.product.Images[0].url,
+                        quantity,
+                    }]
+                })
 
-            setCart((c) => {
-                return [...c, {
-                    id: data.product._id,
-                    name: data.product.name,
-                    price: data.product.price,
-                    img: data.product.Images[0].url,
-                    quantity,
-                }]
-            })
-            if (BUY) return;
-            openDrawer()
-
+                openDrawer()
+            }
 
         } catch (error) {
             showToast('error', error)
@@ -172,7 +171,7 @@ export default function ProductDetails() {
                             <div className="quantity space-x-10">
                                 <span className='text-gray-600 text-xl'> Quantity</span>
                                 <div className="operators inline-flex space-x-4">
-                                    <button disabled={quantity === 0} onClick={() => {
+                                    <button disabled={quantity === 1} onClick={() => {
                                         setQuantity(qu => qu - 1)
                                     }} className={`bg-slate-100 pb-2 transition px-4 py-1 text-xl cursor-pointer ${quantity === 0 ? 'cursor-default bg-slate-100 hover:bg-slate-100 text-gray-400' : ''}  hover:bg-slate-200 text-center rounded-md `}>-</button>
                                     <input className='w-10 text-center text-2xl' type='number' value={quantity} />
@@ -185,12 +184,12 @@ export default function ProductDetails() {
 
                             <div style={{ marginTop: '5rem' }} className="buttons mt-48 flex flex-row space-x-3 w-full">
                                 <div onClick={() => {
-                                    addToCart(true)
-                                    navigate('/form', { state: { redirect: '/shipping' } })
+                                    addToCart()
+                                    showToast('success', 'Item is added to cart, Check out to BUY')
 
                                 }} className="button py-4 text-center text-xl w-1/2 gap-2 cursor-pointer hover:bg-orange-600 transition-all bg-orange-500 text-white ">Buy Now</div>
                                 <div onClick={() => {
-                                    addToCart(false)
+                                    addToCart()
                                 }} className="button py-4 text-center text-xl w-1/2 gap-2 cursor-pointer hover:bg-blue-600 transition-all bg-blue-500 text-white ">Add to Cart</div>
                             </div>
 
@@ -202,7 +201,7 @@ export default function ProductDetails() {
                                     <div className="icon text-3xl">
                                         <MdOutlineLocationOn />
                                     </div>
-                                    <div className="address text-lg">Sindh, Karachi - Gulshan-e-Iqbal, Block 15</div>
+                                    <div className="address text-lg">Any Location You Choose</div>
                                 </div>
 
                                 <div className="delivery flex flex-row space-x-7 items-center">

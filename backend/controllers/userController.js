@@ -16,10 +16,45 @@ const registerUser = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
-        pic: user.password,
+        pic: user.pic,
         token: await generateToken(user.id)
     })
 }
+
+// Continuing with google
+const continueWithGoogle = async (req, res) => {
+    const { name, email, password, pic } = req.body
+    const isAlreadyPresent = await userModal.find({ email })
+    console.log(isAlreadyPresent, 'alreayd')
+    if (isAlreadyPresent[0]) {
+        const user = isAlreadyPresent[0]
+        res.json({
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            pic: user.pic,
+            token: await generateToken(user.id)
+        })
+    } else {
+
+        const user = await userModal.create({
+            name,
+            email,
+            password,
+            pic
+        })
+        console.log(user.id, await generateToken(user.id));
+
+        res.json({
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            pic: user.pic,
+            token: await generateToken(user.id)
+        })
+    }
+}
+
 // Login a user
 const loginUser = async (req, res) => {
     const { email, password } = req.body
@@ -84,5 +119,5 @@ const updateUserProfile = async (req, res) => {
 }
 
 
-module.exports = { registerUser, loginUser, upateUserPassword, updateUserProfile }
+module.exports = { registerUser, loginUser, upateUserPassword, updateUserProfile, continueWithGoogle }
 
