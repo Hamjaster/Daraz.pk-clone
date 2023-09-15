@@ -12,16 +12,6 @@
             "use": "@vercel/node"
         }
     ],
-    "routes": [
-        {
-            "src": "/api/register",
-            "dest": "/api/register.js"
-        },
-        {
-            "src": "/api/user/.*",
-            "dest": "/api/user.js"
-        }
-    ],
     "headers": [
         {
             "source": "/(.*)",
