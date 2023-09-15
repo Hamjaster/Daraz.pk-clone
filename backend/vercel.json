@@ -26,13 +26,8 @@
             "source": "/localhost::3000/(.*)",
             "headers": [
                 {
-                    "source": "/(.*)",
-                    "headers": [
-                        {
-                            "key": "access-control-allow-origin",
-                            "value": "*"
-                        }
-                    ]
+                    "key": "Access-Control-Allow-Origin",
+                    "value": "*"
                 }
             ]
         }
