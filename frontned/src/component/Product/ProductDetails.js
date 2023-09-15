@@ -24,7 +24,7 @@ import { showToast } from '../utils/Toast';
 
 export default function ProductDetails() {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const { Product, setProduct, count, setCount, cart, setCart, openDrawer, openOrderModal, closeOrderModal, user } = useContext(Context)
+    const { Product, setProduct, count, setCount, cart, setCart, openDrawer, openOrderModal, closeOrderModal, user, proxy } = useContext(Context)
     const [loading, setLoading] = useState(false)
     let { id } = useParams();
     const [quantity, setQuantity] = useState(1)
@@ -38,7 +38,7 @@ export default function ProductDetails() {
         console.log(id)
         setLoading(true)
         try {
-            const { data } = await axios.get(`http://localhost:5000/product/${id}`)
+            const { data } = await axios.get(`${proxy}/product/${id}`)
             const reviews = data.product.reviews;
             setHasUserReview(reviews.some((review) => review.user === currentUser.id));
             setProduct(data.product)
@@ -51,10 +51,10 @@ export default function ProductDetails() {
         }
     }
 
-    const addToCart = async () => {
+    const addToCart = async (BUY) => {
         let isAlreadyInCart;
         try {
-            const { data } = await axios.get(`http://localhost:5000/product/${id}`)
+            const { data } = await axios.get(`${proxy}/product/${id}`)
 
             if (cart && cart[0]) {
                 console.log(data.product._id)
@@ -63,7 +63,7 @@ export default function ProductDetails() {
                     return product.id === data.product._id
                 })
             }
-            console.log(isAlreadyInCart)
+
             if (isAlreadyInCart) {
                 showToast('warning', 'Product is already in cart')
             } else {
@@ -78,6 +78,9 @@ export default function ProductDetails() {
                 })
 
                 openDrawer()
+                if (BUY) {
+                    showToast('success', 'Item is added to cart, Check out to BUY')
+                }
             }
 
         } catch (error) {
@@ -184,12 +187,12 @@ export default function ProductDetails() {
 
                             <div style={{ marginTop: '5rem' }} className="buttons mt-48 flex flex-row space-x-3 w-full">
                                 <div onClick={() => {
-                                    addToCart()
-                                    showToast('success', 'Item is added to cart, Check out to BUY')
+                                    addToCart(true)
+
 
                                 }} className="button py-4 text-center text-xl w-1/2 gap-2 cursor-pointer hover:bg-orange-600 transition-all bg-orange-500 text-white ">Buy Now</div>
                                 <div onClick={() => {
-                                    addToCart()
+                                    addToCart(false)
                                 }} className="button py-4 text-center text-xl w-1/2 gap-2 cursor-pointer hover:bg-blue-600 transition-all bg-blue-500 text-white ">Add to Cart</div>
                             </div>
 

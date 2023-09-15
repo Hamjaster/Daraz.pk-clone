@@ -10,7 +10,7 @@ import { AiOutlineGoogle } from 'react-icons/ai'
 import { Context } from '../context/contextApi'
 
 export default function Register() {
-    const proxy = 'http://127.0.0.1:3000'
+
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -19,7 +19,7 @@ export default function Register() {
     const navigate = useNavigate()
     const location = useLocation()
     const provider = new GoogleAuthProvider()
-    const { user, setUser } = useContext(Context)
+    const { user, setUser, proxy } = useContext(Context)
 
     const uploadPic = (pic) => {
 
@@ -57,7 +57,7 @@ export default function Register() {
 
     const register = async () => {
         try {
-            const { data } = await axios.post(`http://localhost:5000/user/register`, { name, email, password, pic })
+            const { data } = await axios.post(proxy, { name, email, password, pic })
 
             localStorage.setItem('userInfo', JSON.stringify(data));
             if (location.state?.redirect) {
@@ -81,7 +81,7 @@ export default function Register() {
             console.log(user)
             if (!name && !email) return;
             try {
-                const { data } = await axios.post(`http://localhost:5000/user/google`, { name, email, pic })
+                const { data } = await axios.post(proxy, { name, email, pic })
                 console.log(data)
                 localStorage.setItem('userInfo', JSON.stringify(data));
                 setUser(data)

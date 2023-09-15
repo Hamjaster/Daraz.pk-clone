@@ -12,9 +12,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 
-app.use(cors({
-    origin: '*'
-}));
+app.use(cors());
 connectDB()
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

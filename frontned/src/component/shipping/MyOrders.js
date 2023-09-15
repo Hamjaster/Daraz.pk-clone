@@ -7,12 +7,12 @@ import noorder from './noorder.jpg'
 import { Button } from '@chakra-ui/react'
 export default function MyOrders() {
 
-    const { user, orders, setOrders } = useContext(Context)
+    const { user, orders, setOrders, proxy } = useContext(Context)
     const navigate = useNavigate()
     const getOrders = async () => {
         console.log('hy')
         try {
-            const { data } = await axios.get('http://localhost:5000/order/myorders', {
+            const { data } = await axios.get(`${proxy}/order/myorders`, {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }

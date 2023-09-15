@@ -12,13 +12,14 @@ import { MdTroubleshoot } from 'react-icons/md';
 
 export default function Products() {
     const [products, setProducts] = useState([])
-    const { count, setCount, keyword, category, setCategory, categories, user } = useContext(Context)
+    const { count, keyword, category, setCategory, categories, user, proxy } = useContext(Context)
     const [value, setValue] = useState([0, 5000]);
     const [loading, setLoading] = useState(false)
 
     const getAllProducts = async () => {
+
         setLoading(true)
-        let link = `http://localhost:5000/product?keyword=${keyword}&category=${category}&price[gte]=${value[0]}&price[lte]=${value[1]}`
+        let link = `${proxy}/product?keyword=${keyword}&category=${category}&price[gte]=${value[0]}&price[lte]=${value[1]}`
         console.log(link)
         try {
             const { data } = await axios.get(link)

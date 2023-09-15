@@ -8,13 +8,13 @@ import hmjaa from './hmja.jpg'
 export default function OrderDetails() {
 
     const id = useParams().id
-    const { user } = useContext(Context)
+    const { user, proxy } = useContext(Context)
     const [order, setOrder] = useState({})
     const [date, setDate] = useState('')
 
     const getOrder = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:5000/order/find/${id}`, {
+            const { data } = await axios.get(`${proxy}/order/find/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }
@@ -86,7 +86,7 @@ export default function OrderDetails() {
 
                             </div>
 
-                            <div class="flex justify-center flex-col md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
+                            <div class="flex justify-center md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
 
                                 <div class="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 dark:bg-gray-800 space-y-6">
                                     <h3 class="text-xl dark:text-white font-semibold leading-5 text-gray-800">Summary</h3>

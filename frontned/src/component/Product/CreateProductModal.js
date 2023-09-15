@@ -30,12 +30,10 @@ const formatResult = (item) => {
 }
 
 export default function CreateProductModal({ isOpen, onClose, onOpen }) {
-    const { count, setCount, categories } = useContext(Context)
+    const { count, setCount, categories, proxy } = useContext(Context)
     const ref = useRef(null)
     const [Images, setImages] = useState([])
     const [category, setcategory] = useState('')
-
-
     const [Name, setName] = useState('')
     const [desc, setdesc] = useState('')
     const [price, setPrice] = useState()
@@ -71,7 +69,7 @@ export default function CreateProductModal({ isOpen, onClose, onOpen }) {
         } else {
 
             try {
-                const { data } = await axios.post('http://localhost:5000/product/create', {
+                const { data } = await axios.post(`${proxy}/product/create`, {
                     name: Name,
                     price,
                     desc,

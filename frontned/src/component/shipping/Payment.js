@@ -11,7 +11,7 @@ import axios from 'axios'
 import { showToast } from '../utils/Toast'
 
 export default function Payment() {
-    const { price, user, selectedCity, selectedCountry, selectedState, cart, setSelectedContry, setSelectedState, setSelectedCity, setCart } = useContext(Context)
+    const { proxy, price, user, selectedCity, selectedCountry, selectedState, cart, setSelectedContry, setSelectedState, setSelectedCity, setCart } = useContext(Context)
     const Payref = useRef(null)
     const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'))
     const stripe = useStripe()
@@ -38,7 +38,7 @@ export default function Payment() {
     const placeOrder = async (o) => {
 
         try {
-            const { data } = await axios.post('http://localhost:5000/order/new', o, {
+            const { data } = await axios.post(`${proxy}/order/new`, o, {
                 headers: {
                     'Authorization': `Bearer ${user.token} `
                 }

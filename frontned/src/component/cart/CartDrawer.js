@@ -20,10 +20,12 @@ export function CartDrawer() {
     const btnRef = React.useRef()
     const navigate = useNavigate()
     const { cart, setCart, isDrawerOpen, closeDrawer, openDrawer } = useContext(Context)
+
     const checkOutHandler = () => {
         navigate('/form', { state: { redirect: '/shipping' } })
         closeDrawer()
     }
+
     return (
         <>
             <div className="cart text-2xl" onClick={openDrawer}>
