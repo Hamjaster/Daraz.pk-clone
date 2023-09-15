@@ -29,10 +29,10 @@
             ]
         }
     ],
-    "rewrites": [
+    "routes": [
         {
-            "source": "/api/(.*)",
-            "destination": "/api"
+            "src": "/(.*)",
+            "destination": "/"
         }
     ]
 }
