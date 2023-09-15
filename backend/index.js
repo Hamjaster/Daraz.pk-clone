@@ -30,6 +30,9 @@ process.on('uncaughtException', (err) => {
 app.get('/', (req, res) => {
     res.send('Api is running!')
 })
+app.get('/test', (req, res) => {
+    res.send('Api is testing!')
+})
 
 
 app.use('/user', userRoutes)
