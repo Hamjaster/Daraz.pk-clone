@@ -34,5 +34,11 @@
             "source": "/(.*)",
             "destination": "/api"
         }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/"
+        }
     ]
 }
