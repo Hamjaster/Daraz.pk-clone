@@ -28,5 +28,11 @@
                 }
             ]
         }
+    ],
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/api"
+        }
     ]
 }

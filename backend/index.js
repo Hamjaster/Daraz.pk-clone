@@ -44,7 +44,7 @@ app.use('/payment', paymentRoutes)
 
 app.listen(port)
 
-
+module.exports = app;
 // Unhandled Reject error handling
 // process.on('unhandledRejection', err => {
 //     console.log("Error: ", err.message)
