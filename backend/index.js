@@ -42,7 +42,7 @@ app.use('/order', orderRoutes)
 app.use('/payment', paymentRoutes)
 
 
-app.listen(port)
+// app.listen(port)
 
 module.exports = app;
 // Unhandled Reject error handling
