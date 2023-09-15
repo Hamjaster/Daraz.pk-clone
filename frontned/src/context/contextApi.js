@@ -42,7 +42,7 @@ export const ContextProvider = ({ children }) => {
     }
 
     const getStripeApiKey = async () => {
-        const { data } = await axios.get('http://localhost:5000/payment/apikey')
+        const { data } = await axios.get(`${proxy}/payment/apikey`)
         console.log(data)
         setStripeApiKey(data.StripeApiKey)
     }

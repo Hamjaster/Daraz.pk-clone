@@ -30,9 +30,7 @@ process.on('uncaughtException', (err) => {
 app.get('/', (req, res) => {
     res.send('Api is running!')
 })
-app.get('/test/one', (req, res) => {
-    res.send('Api is testing one!')
-})
+
 
 app.use('/user', userRoutes)
 app.use('/product', productRoutes)
