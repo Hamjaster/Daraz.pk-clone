@@ -57,7 +57,7 @@ export default function Register() {
 
     const register = async () => {
         try {
-            const { data } = await axios.post(proxy, { name, email, password, pic })
+            const { data } = await axios.post(`${proxy}/register`, { name, email, password, pic })
 
             localStorage.setItem('userInfo', JSON.stringify(data));
             if (location.state?.redirect) {

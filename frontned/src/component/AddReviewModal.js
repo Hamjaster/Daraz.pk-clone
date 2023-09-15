@@ -24,7 +24,7 @@ import { showToast } from './utils/Toast';
 export function AddReviewModal({ isOpen, onClose, onOpen, hasUserReview }) {
     const [comment, setComment] = useState('')
     const [rating, setRating] = useState(0)
-    const { Product, count, setCount, proxy } = useContext(Context)
+    const { Product, count, setCount, proxy, user } = useContext(Context)
 
     const ratingChanged = (r) => {
         console.log('raintg', r)
@@ -35,13 +35,13 @@ export function AddReviewModal({ isOpen, onClose, onOpen, hasUserReview }) {
 
         console.log(JSON.parse(localStorage.getItem('userInfo')).token)
         try {
-            const { data } = await axios.post(`${proxy}/review/add`, {
+            const { data } = await axios.post(`http://127.0.0.1:5000/review/add`, {
                 productId: Product._id,
                 comment,
                 rating
             }, {
                 headers: {
-                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token} `
+                    'Authorization': `Bearer ${user.token} `
                 }
             })
             console.log(data)
