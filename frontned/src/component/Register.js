@@ -81,7 +81,7 @@ export default function Register() {
             console.log(user)
             if (!name && !email) return;
             try {
-                const { data } = await axios.post(proxy, { name, email, pic })
+                const { data } = await axios.post(`${proxy}/google`, { name, email, pic })
                 console.log(data)
                 localStorage.setItem('userInfo', JSON.stringify(data));
                 setUser(data)

@@ -35,7 +35,7 @@ export function AddReviewModal({ isOpen, onClose, onOpen, hasUserReview }) {
 
         console.log(JSON.parse(localStorage.getItem('userInfo')).token)
         try {
-            const { data } = await axios.post(`http://127.0.0.1:5000/review/add`, {
+            const { data } = await axios.post(`${proxy}/review/add`, {
                 productId: Product._id,
                 comment,
                 rating
