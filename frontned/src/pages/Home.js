@@ -11,6 +11,7 @@ import CarouselComponent from '../component/Carousel';
 import Products from '../component/Product/Products';
 import { useColorMode } from '@chakra-ui/react';
 import { Context } from '../context/contextApi';
+import Footer from '../component/Footer';
 
 export default function Home() {
 
@@ -21,6 +22,7 @@ export default function Home() {
                 <CarouselComponent />
             </div>
             <Products />
+            <Footer />
         </div>
     )
 }
