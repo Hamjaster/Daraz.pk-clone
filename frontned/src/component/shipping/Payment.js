@@ -18,7 +18,11 @@ export default function Payment() {
     const elements = useElements()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
+    const [disabled, setdisabled] = useState(true)
 
+    useEffect(() => {
+        console.log(disabled)
+    }, [disabled])
 
     const order = {
         shippingInfo: { Country: selectedCountry.value, State: selectedState.value, City: selectedCity.value },
@@ -63,7 +67,7 @@ export default function Payment() {
         e.preventDefault()
         setLoading(true)
         try {
-            const { data } = await axios.post('http://localhost:5000/payment', {
+            const { data } = await axios.post(`${proxy}/payment`, {
                 amount: Math.round(orderInfo.total * 100)
             })
             const client_secret = data.client_secret
@@ -84,6 +88,7 @@ export default function Payment() {
             if (result.error) {
                 Payref.current.disabled = false
                 console.log(result.error)
+                setLoading(false)
             } else if (result.paymentIntent.status === 'succeeded') {
                 placeOrder(order)
                 setLoading(false)
@@ -109,24 +114,30 @@ export default function Payment() {
                             <div className='icon-pay text-3xl text-orange-900'>
                                 <AiFillCreditCard />
                             </div>
-                            <CardNumberElement className='paymentInput' />
+                            <CardNumberElement onChange={(e) => {
+                                setdisabled(!e.complete)
+                            }} className='paymentInput' />
                         </div>
 
                         <div className="px-12 space-x-5 card-expirt flex flex-row items-center justify-start w-full">
                             <div className='icon-pay text-3xl text-orange-900'>
                                 <AiFillCalendar />
                             </div>
-                            <CardExpiryElement className='paymentInput' />
+                            <CardExpiryElement onChange={(e) => {
+                                setdisabled(!e.complete)
+                            }} className='paymentInput' />
                         </div>
 
                         <div className="px-12 space-x-5 card-cvc flex flex-row items-center justify-start w-full">
                             <div className='icon-pay text-3xl text-orange-900'>
                                 <BsKeyFill />
                             </div>
-                            <CardCvcElement className='paymentInput' />
+                            <CardCvcElement onChange={(e) => {
+                                setdisabled(!e.complete)
+                            }} className='paymentInput' />
                         </div>
 
-                        <Button isLoading={loading} marginX={12} colorScheme="orange" ref={Payref} type="submit">{`Pay - ${orderInfo.total} Rs`}</Button>
+                        <Button isDisabled={disabled} isLoading={loading} marginX={12} colorScheme="orange" ref={Payref} type="submit">{`Pay - ${orderInfo.total} Rs`}</Button>
 
                     </form>
 

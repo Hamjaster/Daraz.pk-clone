@@ -52,14 +52,21 @@ export default function MyOrders() {
                             <div className="order space-y-2 sm:space-y-0 w-full text-xl flex items-center flex-col sm:flex-row border justify-between px-5 py-4">
 
                                 <div className="id italic">{order._id}</div>
-                                <div className="name   font-medium">{order.orderDetails.map((details, idx) => {
+                                <div className="name flex flex-col  font-medium">
+                                    {order.orderDetails.length === 1
+                                        ?
+                                        <span>{order.orderDetails[0].name}</span>
+                                        :
+                                        order.orderDetails.map((details, idx) => {
+                                            return (
+                                                <div className=''>
+                                                    {details.name} {idx + 1 !== order.orderDetails.length ? "," : ""}
+                                                </div>
+                                            )
+                                        })
+                                    }
 
-                                    return (
-                                        <span className='mx-2'>
-                                            {details.name} {idx + 1 !== order.orderDetails.length ? "," : ""}
-                                        </span>
-                                    )
-                                })}</div>
+                                </div>
                                 <div className="address font-light">Wah , Rawalpindi, Pakistan </div>
                                 <div className="price"></div>
                                 <Link to={`/order/${order._id}`} className="checkout cursor-pointer text-3xl">

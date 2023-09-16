@@ -56,7 +56,7 @@ export default function ConfirmOrder() {
                                     </div>
                                     <div className="">
                                         <span className='font-medium'>Phone : </span>
-                                        {number}
+                                        +{selectedCountry?.no} {number}
                                     </div>
                                     <div className="">
                                         <span className='font-medium'>Address : </span>

@@ -25,7 +25,8 @@ export default function Location() {
         return {
             value: country.name,
             label: country.name,
-            iso: country.isoCode
+            iso: country.isoCode,
+            no: country.phonecode
         }
     })
 
@@ -84,9 +85,16 @@ export default function Location() {
                                 <SelectInput data={cities} selectedOption={selectedCity} setSelectedOption={setSelectedCity} placeholder={'Select City'} />
                             </div>
                             {/* Enter Phone */}
-                            <div className="input focus:border-blue-500">
+                            <div className="input flex focus:border-blue-500">
+                                <span class="inline-flex items-center px-4 text-lg text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                                    +{selectedCountry?.no}
+                                </span>
                                 <input value={number} onChange={(e) => {
-                                    setNumber(e.target.value)
+                                    if (number?.toString().length >= 9) {
+                                        console.log('Full')
+                                    } else {
+                                        setNumber(e.target.value)
+                                    }
                                 }} style={{
                                     borderColor: "rgb(204 204 204)",
                                     borderRadius: "4px",

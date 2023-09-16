@@ -47,7 +47,7 @@ export default function Login() {
             console.log(user)
             if (!name && !email) return;
             try {
-                const { data } = await axios.post(`${proxy}/google`, { name, email, pic })
+                const { data } = await axios.post(`${proxy}/user/google`, { name, email, pic })
                 console.log(data)
                 localStorage.setItem('userInfo', JSON.stringify(data));
                 setUser(data)

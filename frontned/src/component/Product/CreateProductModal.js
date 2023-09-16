@@ -153,6 +153,7 @@ export default function CreateProductModal({ isOpen, onClose, onOpen }) {
                                                 onFocus={handleOnFocus}
                                                 autoFocus
                                                 formatResult={formatResult}
+                                                placeholder='category'
                                                 styling={{
                                                     borderRadius: 'none',
                                                     boxShadow: 'none',

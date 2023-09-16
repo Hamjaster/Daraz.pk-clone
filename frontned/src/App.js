@@ -16,6 +16,7 @@ import OrderSuccess from './component/shipping/OrderSuccess'
 import MyOrders from './component/shipping/MyOrders'
 import OrderDetails from './component/shipping/OrderDetails'
 import ProtectedRoute from './component/Route/ProtectedRoute'
+import Footer from './component/Footer'
 
 export default function App() {
     const { StripeApiKey } = useContext(Context)
@@ -45,6 +46,7 @@ export default function App() {
                 )}
 
             </Routes>
+            <Footer />
 
 
         </div>

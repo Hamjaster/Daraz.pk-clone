@@ -17,9 +17,6 @@ export default function SelectInput({ data, selectedOption, setSelectedOption, p
                 options={data}
                 placeholder={placeholder}
                 styles={{
-
-
-
                     container: (provided) => ({
                         ...provided,
                         width: "100%",
