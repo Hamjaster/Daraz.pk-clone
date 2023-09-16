@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Context } from '../../context/contextApi';
 
 export default function Product({ value, name, price, noOfreviews, img, id }) {
-    const { Product, setProduct } = useContext(Context)
+
 
 
     return (

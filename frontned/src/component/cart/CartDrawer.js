@@ -9,7 +9,7 @@ import {
     Button,
     useDisclosure,
 } from '@chakra-ui/react'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { Context } from '../../context/contextApi'
 import CartProduct from './CartProduct'
@@ -25,6 +25,11 @@ export function CartDrawer() {
         navigate('/form', { state: { redirect: '/shipping' } })
         closeDrawer()
     }
+
+    useEffect(() => {
+        console.log(cart.map(c => console.log(c.img)))
+    }, [cart])
+
 
     return (
         <>

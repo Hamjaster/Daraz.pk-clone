@@ -9,8 +9,8 @@ export default function CartProduct({ name, price, img, quantity, id }) {
         <div className='bg-[#eff0f5] py-4 px-2 relative group flex flex-row space-x-3'>
 
             {/* Image */}
-            <div className="img">
-                <img src={img} className='w-36' alt="" srcset="" />
+            <div className="img w-36 bg-center bg-cover bg-no-repeat" style={{ backgroundImage: `url(${img})` }}>
+                {/* <img src={img} className='w-36' alt="" srcset="" /> */}
             </div>
 
             {/* Product Data */}
