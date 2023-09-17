@@ -26,6 +26,7 @@ export default function Login() {
         try {
             const { data } = await axios.post(`${proxy}/user/login`, { email, password })
             localStorage.setItem('userInfo', JSON.stringify(data));
+            setUser(data)
             if (location.state?.redirect) {
                 navigate(location.state.redirect);
             } else {
