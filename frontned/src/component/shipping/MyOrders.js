@@ -37,7 +37,7 @@ export default function MyOrders() {
         <>
             {orders && orders[0]
                 ? <div className='flex w-5/6 mx-auto flex-col justify-start items-center border '>
-                    <div className="order mb-2 font-medium w-full text-xl flex items-center flex-row justify-between px-4 py-2">
+                    <div className="order mb-2 font-medium w-full text-md sm:text-lg md:text-xl flex items-center flex-row justify-between px-4 py-2">
                         <div className="id italic">ID</div>
                         <div className="name ">NAME</div>
                         <div className="address ">SHIPPING TO </div>

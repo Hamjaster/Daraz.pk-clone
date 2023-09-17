@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Context } from '../context/contextApi'
 import { CartDrawer } from './cart/CartDrawer'
 import icon from '../images/icon.png'
+import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
 
 export default function Navbar() {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -43,8 +44,11 @@ export default function Navbar() {
                     <div onClick={logout} className='item'>Logout</div>
                     : <Link className='item' to={'/form'}>Login/Register</Link>
                 }
-                <div className="cart">
-                    <CartDrawer />
+                <div className="flex space-x-4 flex-row  items-center justify-center">
+                    <div className="cart">
+                        <CartDrawer />
+                    </div>
+                    <Avatar size={'sm'} name={user?.name} src={user?.pic} />
                 </div>
             </div>
 
