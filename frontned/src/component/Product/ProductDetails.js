@@ -39,6 +39,7 @@ export default function ProductDetails() {
         setLoading(true)
         try {
             const { data } = await axios.get(`${proxy}/product/${id}`)
+            console.log(data, 'data from api')
             const reviews = data.product.reviews;
             setHasUserReview(reviews.some((review) => review.user === currentUser.id));
             setProduct(data.product)
@@ -147,10 +148,10 @@ export default function ProductDetails() {
                         <div className="img sm:px-8 px-4 py-1 sm:py-9 sm:w-1/2">
 
                             <Carousel>
-                                {Product.Images.map((img) => {
+                                {Product.Images.map((img, idx) => {
                                     return (
                                         // <SwiperSlide key={img.id}>
-                                        <img src={img.url} alt={img.altText} />
+                                        <img key={idx} src={img.url} alt={img.altText} />
                                         // </SwiperSlide>
                                     );
                                 })}
