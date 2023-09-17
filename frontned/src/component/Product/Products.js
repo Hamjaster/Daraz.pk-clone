@@ -73,7 +73,7 @@ export default function Products() {
                             setCategory(c.name)
                         }} className={`${category === c.name ? 'border-b border-b-orange-500' : ''}  img sm:py-5 sm:px-1 lg:px-6   space-y-2  items-center flex flex-col`}>
                             <img src={c.img} className='w-12 sm:w-16 md:w-24' alt="" />
-                            <div className="text-[10px] sm:text-[12px] lg:text-lg mx-auto font-semibold text-center">{c.name}</div>
+                            <div className="hidden sm:block text-[10px] sm:text-[12px] lg:text-lg mx-auto font-semibold text-center">{c.name}</div>
                         </div>
                     })}
 
@@ -90,19 +90,19 @@ export default function Products() {
 
             {/* All Products here */}
             {loading
-                ? <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 lg:mx-20 py-10">
-                    <Skeleton height='16rem' width='13rem' />
-                    <Skeleton height='16rem' width='13rem' />
-                    <Skeleton height='16rem' width='13rem' />
-                    <Skeleton height='16rem' width='13rem' />
-                    <Skeleton height='16rem' width='13rem' />
-                    <Skeleton height='16rem' width='13rem' />
-                    <Skeleton height='16rem' width='13rem' />
-                    <Skeleton height='16rem' width='13rem' />
-                    <Skeleton height='16rem' width='13rem' />
-                    <Skeleton height='16rem' width='13rem' />
-                    <Skeleton height='16rem' width='13rem' />
-                    <Skeleton height='16rem' width='13rem' />
+                ? <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 [&>*]:mx-auto [&>*]:h-32 mx-auto text-center [&>*]:w-36 md:[&>*]:h-56 md:[&>*]:w-44  gap-3 lg:mx-20 py-10">
+                    <Skeleton />
+                    <Skeleton />
+                    <Skeleton />
+                    <Skeleton />
+                    <Skeleton />
+                    <Skeleton />
+                    <Skeleton />
+                    <Skeleton />
+                    <Skeleton />
+                    <Skeleton />
+                    <Skeleton />
+                    <Skeleton />
 
                 </div>
                 :

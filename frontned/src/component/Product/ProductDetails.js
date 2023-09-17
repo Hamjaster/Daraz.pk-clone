@@ -28,7 +28,7 @@ export default function ProductDetails() {
     const [loading, setLoading] = useState(false)
     let { id } = useParams();
     const [quantity, setQuantity] = useState(1)
-    const currentUser = JSON.parse(localStorage.getItem('userInfo'))
+
     const [hasUserReview, setHasUserReview] = useState(false);
     const navigate = useNavigate()
 
@@ -41,7 +41,10 @@ export default function ProductDetails() {
             const { data } = await axios.get(`${proxy}/product/${id}`)
             console.log(data, 'data from api')
             const reviews = data.product.reviews;
-            setHasUserReview(reviews.some((review) => review.user === currentUser.id));
+            if (user.name) {
+                console.log('user is present')
+                setHasUserReview(reviews.some((review) => review.user === user.id));
+            }
             setProduct(data.product)
             setLoading(false)
             console.log(data)
@@ -96,7 +99,7 @@ export default function ProductDetails() {
 
 
     const stars = {
-        size: 30,
+        size: 25,
         value: Product.rating,
         edit: false
     };
@@ -143,7 +146,7 @@ export default function ProductDetails() {
 
                 <>
                     {/* Main Product */}
-                    <div className="card  md:mx-12 mx-5 sm:mx-5 bg-white my-10 flex flex-col sm:flex-row ">
+                    <div className="card md:mx-12 mx-5 sm:mx-5 bg-white my-10 px-2 flex flex-col sm:flex-row ">
 
                         <div className="img sm:px-8 px-4 py-1 sm:py-9 sm:w-1/2">
 
@@ -159,9 +162,9 @@ export default function ProductDetails() {
 
                         </div>
 
-                        <div className="info space-y-8 h-min px-4 sm:py-10 sm:w-1/2">
+                        <div className="info space-y-6 sm:space-y-8 h-min px-4 sm:py-10 sm:w-1/2">
 
-                            <div className="title font-medium text-4xl">{Product.name}</div>
+                            <div className="title font-medium text-2xl sm:text-4xl">{Product.name}</div>
 
                             <div className="reviews flex flex-row items-center space-x-1 text-gray-500">
                                 <div className="ratings flex items-center">
@@ -172,21 +175,25 @@ export default function ProductDetails() {
 
                             <div className="price font-semibold text-5xl mt-10 text-orange-600">Rs. {Product.price} </div>
 
-                            <div className="quantity space-x-10">
-                                <span className='text-gray-600 text-xl'> Quantity</span>
-                                <div className="operators inline-flex space-x-4">
-                                    <button disabled={quantity === 1} onClick={() => {
-                                        setQuantity(qu => qu - 1)
-                                    }} className={`bg-slate-100 pb-2 transition px-4 py-1 text-xl cursor-pointer ${quantity === 0 ? 'cursor-default bg-slate-100 hover:bg-slate-100 text-gray-400' : ''}  hover:bg-slate-200 text-center rounded-md `}>-</button>
-                                    <input className='w-10 text-center text-2xl' type='number' value={quantity} />
-                                    <button disabled={quantity >= Product.stock} onClick={() => {
-                                        setQuantity(qu => qu + 1)
-                                    }} className={`bg-slate-100 pb-2 transition px-4 py-1 text-xl cursor-pointer ${quantity >= Product.stock ? 'cursor-default bg-slate-100 hover:bg-slate-100 text-gray-400' : ''} hover:bg-slate-200 text-center rounded-md`}>+</button>
+                            <div className="quantity sm:space-x-10  flex flex-col sm:flex-row space-y-2 sm:space-y-0  flex-wrap">
+                                <div className="quantity">
+
+                                    <span className='text-gray-600 text-xl'> Quantity</span>
+
+                                    <div className="operators inline-flex space-x-4">
+                                        <button disabled={quantity === 1} onClick={() => {
+                                            setQuantity(qu => qu - 1)
+                                        }} className={`bg-slate-100 pb-2 transition px-4 py-1 text-xl cursor-pointer ${quantity === 0 ? 'cursor-default bg-slate-100 hover:bg-slate-100 text-gray-400' : ''}  hover:bg-slate-200 text-center rounded-md `}>-</button>
+                                        <input className='w-10 text-center text-2xl' type='number' value={quantity} />
+                                        <button disabled={quantity >= Product.stock} onClick={() => {
+                                            setQuantity(qu => qu + 1)
+                                        }} className={`bg-slate-100 pb-2 transition px-4 py-1 text-xl cursor-pointer ${quantity >= Product.stock ? 'cursor-default bg-slate-100 hover:bg-slate-100 text-gray-400' : ''} hover:bg-slate-200 text-center rounded-md`}>+</button>
+                                    </div>
                                 </div>
                                 <span className="stock text-green-500 font-bold">In Stock</span>
                             </div>
 
-                            <div style={{ marginTop: '5rem' }} className="buttons mt-48 flex flex-row space-x-3 w-full">
+                            <div className="buttons sm:mt-48  flex flex-row space-x-3 w-full">
                                 <div onClick={() => {
                                     addToCart(true)
 
@@ -251,7 +258,12 @@ export default function ProductDetails() {
                                         <div className="rate">
                                             <span className='text-6xl'>{Product.rating}</span> <span className='text-gray-400 text-4xl'>/5</span>
                                         </div>
-                                        <ReactStars {...starsBIG} />
+                                        <div className='md:hidden'>
+                                            <ReactStars {...stars} />
+                                        </div>
+                                        <div className='md:block hidden'>
+                                            <ReactStars {...starsBIG} />
+                                        </div>
                                         <div className="text-lg  text-gray-500">{Product.NoOfReviews} ratings</div>
                                     </div>
 
@@ -266,7 +278,7 @@ export default function ProductDetails() {
 
                                             <div><ReactStars {...{ value: rv.rating, size: 20, edit: false }} /></div>
                                             <div className='font-semibold text-gray-500'>
-                                                {rv.user.toString() === JSON.parse(localStorage.getItem('userInfo')).id ?
+                                                {rv.user.toString() === user?.id ?
                                                     <> by You </>
                                                     :
                                                     <> by {rv.name} </>}
