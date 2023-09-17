@@ -90,7 +90,7 @@ export default function ConfirmOrder() {
 
                                 <div className="flex w-full text-lg flex-row justify-between">
                                     <span className='font-semibold'>Subtotal</span>
-                                    <span>Rs {total}</span>
+                                    <span>Rs {subtotal}</span>
                                 </div>
 
                                 <div className="flex w-full text-lg flex-row justify-between">
@@ -117,7 +117,7 @@ export default function ConfirmOrder() {
                     </div>
 
                 </div>
-                : <div className='text-center text-2xl font-medium'>
+                : <div className='text-center mt-12 text-orange-500 text-2xl font-medium'>
                     There are no Items in your CART
                 </div>
             }

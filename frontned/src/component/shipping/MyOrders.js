@@ -67,7 +67,7 @@ export default function MyOrders() {
                                     }
 
                                 </div>
-                                <div className="address font-light">Wah , Rawalpindi, Pakistan </div>
+                                <div className="address font-light">{order.shippingInfo.City} , {order.shippingInfo.State}, {order.shippingInfo.Country} </div>
                                 <div className="price"></div>
                                 <Link to={`/order/${order._id}`} className="checkout cursor-pointer text-3xl">
                                     <MdShoppingCartCheckout />
