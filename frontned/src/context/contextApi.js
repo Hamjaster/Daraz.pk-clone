@@ -25,7 +25,9 @@ export const ContextProvider = ({ children }) => {
     const [StripeApiKey, setStripeApiKey] = useState('')
     const [orderInfo, setOrderInfo] = useState({})
     const [orders, setOrders] = useState([])
-    const proxy = 'https://daraz-pk-clone-api.vercel.app'
+    const [sidebar, setSidebar] = useState(false)
+    // const proxy = 'https://daraz-pk-clone-api.vercel.app'
+    const proxy = 'http://127.0.0.1:5000'
 
     const closeDrawer = () => {
         setIsDrawerOpen(false)
@@ -86,7 +88,7 @@ export const ContextProvider = ({ children }) => {
     ]
 
     return (
-        <Context.Provider value={{ Product, setProduct, setCount, count, setKeyword, keyword, category, setCategory, categories, cart, setCart, isDrawerOpen, closeDrawer, openDrawer, isOrderModalOpen, setisOrderModalOpen, openOrderModal, closeOrderModal, selectedCountry, setSelectedCountry, selectedState, setSelectedState, selectedCity, setSelectedCity, number, setNumber, user, setUser, StripeApiKey, setStripeApiKey, orderInfo, setOrderInfo, orders, setOrders, proxy }}>
+        <Context.Provider value={{ Product, setProduct, setCount, count, setKeyword, keyword, category, setCategory, categories, cart, setCart, isDrawerOpen, closeDrawer, openDrawer, isOrderModalOpen, setisOrderModalOpen, openOrderModal, closeOrderModal, selectedCountry, setSelectedCountry, selectedState, setSelectedState, selectedCity, setSelectedCity, number, setNumber, user, setUser, StripeApiKey, setStripeApiKey, orderInfo, setOrderInfo, orders, setOrders, proxy, sidebar, setSidebar }}>
             {children}
         </Context.Provider>
     )

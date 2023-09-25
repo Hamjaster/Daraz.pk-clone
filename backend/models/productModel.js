@@ -22,8 +22,8 @@ const productSchema = new mongoose.Schema({
     },
     Images: [
         {
-            publicId: String,
-            url: String
+            secure_url: String,
+            public_id: String
         }
     ],
     reviews: [

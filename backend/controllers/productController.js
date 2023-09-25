@@ -20,14 +20,22 @@ const getAllProducts = async (req, res) => {
 
 // Creating a product
 const createProduct = async (req, res) => {
+    console.log(req.body.Images, 'image array from frontend')
     try {
-        const product = await Product.create(req.body)
+        const product = await Product.create({
+            name: req.body.name,
+            desc: req.body.desc,
+            stock: req.body.stock,
+            price: req.body.price,
+            category: req.body.category,
+            Images: req.body.Images
+        })
         res.send({
             success: true,
             product
         })
     } catch (er) {
-        res.send(er)
+        res.send(("error --> ", er))
     }
 }
 

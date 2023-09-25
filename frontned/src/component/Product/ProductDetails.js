@@ -76,7 +76,7 @@ export default function ProductDetails() {
                         id: data.product._id,
                         name: data.product.name,
                         price: data.product.price,
-                        img: data.product.Images[0].url,
+                        img: data.product.Images[0].secure_url,
                         quantity,
                     }]
                 })
@@ -97,12 +97,12 @@ export default function ProductDetails() {
         console.log(hasUserReview, 'si rev')
     }, [count])
 
-
     const stars = {
         size: 25,
         value: Product.rating,
         edit: false
     };
+
     const starsBIG = {
         size: 50,
         value: Product.rating,
@@ -153,9 +153,9 @@ export default function ProductDetails() {
                             <Carousel>
                                 {Product.Images.map((img, idx) => {
                                     return (
-                                        // <SwiperSlide key={img.id}>
-                                        <img key={idx} src={img.url} alt={img.altText} />
-                                        // </SwiperSlide>
+
+                                        <img key={idx} src={img.secure_url} alt={img.altText} />
+
                                     );
                                 })}
                             </Carousel>
@@ -175,8 +175,9 @@ export default function ProductDetails() {
 
                             <div className="price font-semibold text-5xl mt-10 text-orange-600">Rs. {Product.price} </div>
 
-                            <div className="quantity sm:space-x-10  flex flex-col sm:flex-row space-y-2 sm:space-y-0  flex-wrap">
-                                <div className="quantity">
+                            <div className="quantity sm:space-x-10  flex flex-col sm:flex-row space-y-2 sm:space-y-0  flex-wrap items-center">
+
+                                <div className="quantity space-x-3">
 
                                     <span className='text-gray-600 text-xl'> Quantity</span>
 
@@ -189,6 +190,7 @@ export default function ProductDetails() {
                                             setQuantity(qu => qu + 1)
                                         }} className={`bg-slate-100 pb-2 transition px-4 py-1 text-xl cursor-pointer ${quantity >= Product.stock ? 'cursor-default bg-slate-100 hover:bg-slate-100 text-gray-400' : ''} hover:bg-slate-200 text-center rounded-md`}>+</button>
                                     </div>
+
                                 </div>
                                 <span className="stock text-green-500 font-bold">In Stock</span>
                             </div>
@@ -196,8 +198,6 @@ export default function ProductDetails() {
                             <div className="buttons sm:mt-48  flex flex-row space-x-3 w-full">
                                 <div onClick={() => {
                                     addToCart(true)
-
-
                                 }} className="button py-4 text-center text-xl w-1/2 gap-2 cursor-pointer hover:bg-orange-600 transition-all bg-orange-500 text-white ">Buy Now</div>
                                 <div onClick={() => {
                                     addToCart(false)
@@ -235,6 +235,7 @@ export default function ProductDetails() {
                         </div>
 
                     </div>
+
                     {/* Product Description */}
                     <div className="desc px-5 py-5 bg-white sm:mx-12 mx-5 my-10">
                         <div className='text-2xl font-medium'>Product Description</div>
@@ -242,6 +243,7 @@ export default function ProductDetails() {
                         <br />
                         <br />
                     </div>
+
                     {/* Product Reviews */}
                     <div className="reviews sm:mx-12 mx-5 px-5 py-5 my-10 bg-white">
 

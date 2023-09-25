@@ -6,11 +6,15 @@ import { Context } from '../context/contextApi'
 import { CartDrawer } from './cart/CartDrawer'
 import icon from '../images/icon.png'
 import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
+import { VscMenu } from 'react-icons/vsc'
+import { IoClose } from 'react-icons/io5'
 
 export default function Navbar() {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const { keyword, setKeyword, user, setUser } = useContext(Context)
+    const { keyword, setKeyword, user, setUser, sidebar, setSidebar } = useContext(Context)
     const navigate = useNavigate()
+
+
     const logout = () => {
         setUser({})
         localStorage.removeItem('userInfo')
@@ -30,7 +34,7 @@ export default function Navbar() {
             }} className='outline-none border-none px-1 py-1 text-sm text-black sm:px-2 sm:py-2 sm:text-sm w-2/5' type="text" placeholder='Search items in Daraz.pk' />
 
 
-            <div className="items [&>div]:cursor-pointer  flex-col space-y-1 sm:space-y-0 flex sm:space-x-8 sm:flex-row justify-evenly items-start sm:items-center ">
+            <div className="items hidden [&>div]:cursor-pointer  flex-col space-y-1 sm:space-y-0 md:flex sm:space-x-8 sm:flex-row justify-evenly items-start sm:items-center ">
                 <Link to={'/'} className="item">Home</Link>
                 <Link to={'/orders/me'} className="item">My Orders</Link>
                 <div onClick={() => {
@@ -51,6 +55,52 @@ export default function Navbar() {
                     <Avatar size={'sm'} name={user?.name} src={user?.pic} />
                 </div>
             </div>
+
+            <div onClick={() => {
+                setSidebar(true)
+            }} className='md:hidden text-3xl block'>
+                <VscMenu />
+            </div>
+
+            {sidebar &&
+                <div className="bg-orange-500 overflow-y-hidden z-50 text-white top-0 right-0 w-full h-full flex flex-col items-center justify-evenly text-3xl font-semibold fixed">
+                    <div onClick={() => {
+                        setSidebar(false)
+                    }} className="absolute top-4 right-4">
+                        <IoClose />
+                    </div>
+                    <Link onClick={() => {
+                        setSidebar(false)
+                    }} to={'/'} className="item">Home</Link>
+                    <Link onClick={() => {
+                        setSidebar(false)
+                    }} to={'/orders/me'} className="item">My Orders</Link>
+                    <div onClick={() => {
+                        if (!user.name) {
+                            navigate('/form')
+                            setSidebar(false)
+                        } else {
+                            onOpen()
+                            setSidebar(false)
+                        }
+                    }} className="item">Create a Product</div>
+                    {user && user.name ?
+                        <div onClick={() => {
+                            logout()
+                            setSidebar(false)
+                        }} className='item'>Logout</div>
+                        : <Link className='item' onClick={() => {
+                            setSidebar(false)
+                        }} to={'/form'}>Login/Register</Link>
+                    }
+                    <div className="flex text-4xl space-x-6 flex-row  items-center justify-center">
+                        <div className="cart ">
+                            <CartDrawer mobile={true} />
+                        </div>
+                        <Avatar size={'lg'} name={user?.name} src={user?.pic} />
+                    </div>
+                </div>
+            }
 
             <CreateProductModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
         </div>

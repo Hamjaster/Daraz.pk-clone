@@ -69,6 +69,7 @@ export default function CreateProductModal({ isOpen, onClose, onOpen }) {
         } else {
 
             try {
+                console.log(Images, 'imgs array to post')
                 const { data } = await axios.post(`${proxy}/product/create`, {
                     name: Name,
                     price,

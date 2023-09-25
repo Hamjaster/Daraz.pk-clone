@@ -17,7 +17,13 @@ export const handleImageUpload = (e, setImages, setLoading) => {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    setImages((prevImages) => [...prevImages, data]);
+                    console.log(data, 'img obt from cloudinary')
+                    setImages((prevImages) => [...prevImages,
+                    {
+                        secure_url: data.secure_url,
+                        public_id: data.public_id
+                    }
+                    ]);
                     setLoading(false)
                 })
                 .catch((error) => {
@@ -39,7 +45,12 @@ export const handleImageUpload = (e, setImages, setLoading) => {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    setImages((prevImages) => [...prevImages, data]);
+                    setImages((prevImages) => [...prevImages,
+                    {
+                        secure_url: data.secure_url,
+                        public_id: data.public_id
+                    }
+                    ]);
                     setLoading(false)
                 })
                 .catch((error) => {
@@ -51,6 +62,7 @@ export const handleImageUpload = (e, setImages, setLoading) => {
     }
 
 };
+
 export const handleImageRemove = (publicId, setImages, setLoading) => {
     setImages((prevImages) =>
         prevImages.filter((image) => image.public_id !== publicId)

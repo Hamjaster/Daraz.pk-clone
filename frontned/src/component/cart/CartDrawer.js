@@ -15,7 +15,7 @@ import { Context } from '../../context/contextApi'
 import CartProduct from './CartProduct'
 import { useNavigate } from 'react-router-dom'
 
-export function CartDrawer() {
+export function CartDrawer({ mobile }) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
     const navigate = useNavigate()
@@ -33,7 +33,7 @@ export function CartDrawer() {
 
     return (
         <>
-            <div className="cart text-2xl" onClick={openDrawer}>
+            <div className={`cart ${mobile ? "text-5xl" : "text-2xl"}`} onClick={openDrawer}>
                 <AiOutlineShoppingCart />
             </div>
             <Drawer

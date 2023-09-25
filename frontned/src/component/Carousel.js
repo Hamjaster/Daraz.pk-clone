@@ -36,22 +36,22 @@ export default function CarouselComponent() {
 
             >
                 <SwiperSlide>
-                    <img src={bg1} alt="" srcset="" />
+                    <img lazyload={true} src={bg1} alt="" srcset="" />
                 </SwiperSlide>
                 <SwiperSlide  >
-                    <img src={bg2} alt="" srcset="" />
+                    <img lazyload={true} src={bg2} alt="" srcset="" />
                 </SwiperSlide>
                 <SwiperSlide >
-                    <img src={bg3} alt="" srcset="" />
+                    <img lazyload={true} src={bg3} alt="" srcset="" />
                 </SwiperSlide>
                 <SwiperSlide >
-                    <img src={bg4} alt="" srcset="" />
+                    <img lazyload={true} src={bg4} alt="" srcset="" />
                 </SwiperSlide>
                 <SwiperSlide >
-                    <img src={bg5} alt="" srcset="" />
+                    <img lazyload={true} src={bg5} alt="" srcset="" />
                 </SwiperSlide>
                 <SwiperSlide >
-                    <img src={bg6} alt="" srcset="" />
+                    <img lazyload={true} src={bg6} alt="" srcset="" />
                 </SwiperSlide>
                 <SwiperSlide >
                     <img src={bg7} alt="" srcset="" />

@@ -1,27 +1,38 @@
-import React, { useContext, useEffect } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react';
+import React, { useContext, useEffect, Suspense } from 'react'
 import '../App.css'
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import Navbar from '../component/Navbar';
-import CarouselComponent from '../component/Carousel';
 import Products from '../component/Product/Products';
-import { useColorMode } from '@chakra-ui/react';
-import { Context } from '../context/contextApi';
 import Footer from '../component/Footer';
+import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
+import bg7 from '../images/bg8.jpg'
+import { Context } from '../context/contextApi';
+
+const CarouselComponent = React.lazy(() => import('../component/Carousel'))
 
 export default function Home() {
-
+    const { keyword } = useContext(Context)
 
     return (
-        <div>
-            <div>
-                <CarouselComponent />
+        <div >
+            {/* If no search, no carousel */}
+            {keyword ? <></> :
+                <div>
+                    <Suspense fallback={<div className='px-4 py-2'>
+                        <Skeleton>
+                            <img src={bg7} alt="" srcset="" />
+                        </Skeleton>
+                    </div>
+                    }>
+                        <CarouselComponent />
+                    </Suspense>
+                </div>
+            }
+            <div className="mb-56">
+                <Products />
             </div>
-            <Products />
             <Footer />
         </div>
     )
