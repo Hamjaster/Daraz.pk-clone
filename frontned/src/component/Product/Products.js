@@ -109,7 +109,7 @@ export default function Products() {
                 <div className=" grid mx-auto grid-cols-2 sm:grid-cols-3 md:grid-cols-4 items-center justify-center lg:mx-20 my-10">
 
                     {products && products.map((product) => {
-                        return <Product key={product._id} id={product._id} name={product.name} value={product.rating} price={product.price} img={product.Images[0].url} noOfreviews={product.NoOfReviews} />
+                        return <Product key={product._id} id={product._id} name={product.name} value={product.rating} price={product.price} img={product.Images[0].secure_url} noOfreviews={product.NoOfReviews} />
                     })}
 
                 </div>
