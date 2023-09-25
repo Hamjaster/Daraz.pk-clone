@@ -1,53 +1,51 @@
-import React, { useContext } from 'react'
-import Form from './pages/Form'
-import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Home'
-import ProductDetails from './component/Product/ProductDetails'
-import Navbar from './component/Navbar'
-import Location from './component/shipping/Location'
-import ConfirmOrder from './component/shipping/ConfirmOrder'
-import Payment from './component/shipping/Payment'
-import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
+import React, { useContext, Suspense } from 'react';
+import Form from './pages/Form';
+import { Elements } from '@stripe/react-stripe-js';
+import ProtectedRoute from './component/Route/ProtectedRoute';
+import { loadStripe } from '@stripe/stripe-js';
+import { Context } from './context/contextApi';
+import { Route, Routes } from 'react-router-dom';
 
-import { Context } from './context/contextApi'
-import OrderSuccess from './component/shipping/OrderSuccess'
-import MyOrders from './component/shipping/MyOrders'
-import OrderDetails from './component/shipping/OrderDetails'
-import ProtectedRoute from './component/Route/ProtectedRoute'
-import Footer from './component/Footer'
+// Lazily loaded components
+const Home = React.lazy(() => import('./pages/Home'));
+const ProductDetails = React.lazy(() => import('./component/Product/ProductDetails'));
+const Navbar = React.lazy(() => import('./component/Navbar'));
+const Location = React.lazy(() => import('./component/shipping/Location'));
+const ConfirmOrder = React.lazy(() => import('./component/shipping/ConfirmOrder'));
+const Payment = React.lazy(() => import('./component/shipping/Payment'));
+const OrderSuccess = React.lazy(() => import('./component/shipping/OrderSuccess'));
+const MyOrders = React.lazy(() => import('./component/shipping/MyOrders'));
+const OrderDetails = React.lazy(() => import('./component/shipping/OrderDetails'));
 
 export default function App() {
-    const { StripeApiKey } = useContext(Context)
+    const { StripeApiKey } = useContext(Context);
+
     return (
-
         <div>
-            <Navbar />
-            <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/form' element={<Form />} />
-                <Route path='/product/:id' element={<ProductDetails />} />
-                <Route path='/shipping' element={<ProtectedRoute component={Location} />} />
-                <Route path='/shipping/order' element={<ProtectedRoute component={ConfirmOrder} />} />
-                <Route path='/success' element={<ProtectedRoute component={OrderSuccess} />} />
-                <Route path='/orders/me' element={<ProtectedRoute component={MyOrders} />} />
-                <Route path='/order/:id' element={<ProtectedRoute component={OrderDetails} />} />
+            <Suspense fallback={<div>Loading...</div>}>
+                <Navbar />
+                <Routes>
+                    <Route path='/' element={<Home />} />
+                    <Route path='/form' element={<Form />} />
+                    <Route path='/product/:id' element={<ProductDetails />} />
+                    <Route path='/shipping' element={<ProtectedRoute component={Location} />} />
+                    <Route path='/shipping/order' element={<ProtectedRoute component={ConfirmOrder} />} />
+                    <Route path='/success' element={<ProtectedRoute component={OrderSuccess} />} />
+                    <Route path='/orders/me' element={<ProtectedRoute component={MyOrders} />} />
+                    <Route path='/order/:id' element={<ProtectedRoute component={OrderDetails} />} />
 
-                {StripeApiKey && (
-                    <Route
-                        path="/shipping/payment"
-                        element={(
-                            <Elements stripe={loadStripe(StripeApiKey)}>
-                                <Payment />
-                            </Elements>
-                        )}
-                    />
-                )}
-
-            </Routes>
-
-
-
+                    {StripeApiKey && (
+                        <Route
+                            path="/shipping/payment"
+                            element={(
+                                <Elements stripe={loadStripe(StripeApiKey)}>
+                                    <Payment />
+                                </Elements>
+                            )}
+                        />
+                    )}
+                </Routes>
+            </Suspense>
         </div>
-    )
+    );
 }
