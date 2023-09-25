@@ -15,7 +15,7 @@ import { Context } from '../../context/contextApi'
 import CartProduct from './CartProduct'
 import { useNavigate } from 'react-router-dom'
 
-export function CartDrawer({ mobile }) {
+export default function CartDrawer({ mobile }) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
     const navigate = useNavigate()

@@ -1,13 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react'
-import CreateProductModal from './Product/CreateProductModal'
+import React, { useContext, useEffect, useState, Suspense } from 'react'
 import { Button, useDisclosure } from '@chakra-ui/react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Context } from '../context/contextApi'
-import { CartDrawer } from './cart/CartDrawer'
 import icon from '../images/icon.png'
-import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
+import { Avatar } from '@chakra-ui/react'
 import { VscMenu } from 'react-icons/vsc'
-import { IoClose } from 'react-icons/io5'
+import { AiOutlineClose } from 'react-icons/ai'
+import { Context } from '../context/contextApi'
+
+const CreateProductModal = React.lazy(() => import('./Product/CreateProductModal'))
+const CartDrawer = React.lazy(() => import('./cart/CartDrawer'))
 
 export default function Navbar() {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -22,17 +23,18 @@ export default function Navbar() {
 
     }
     return (
+
+
+
         <div className='flex  w-full text-md bg-orange-600 px-3 py-3 text-white space-x-4 flex-row justify-between items-center'>
 
             <div className="logo text-2xl font-bold">
                 <img src={icon} alt="" srcset="" className='w-28' />
             </div>
 
-
             <input value={keyword} onChange={(e) => {
                 setKeyword(e.target.value)
             }} className='outline-none border-none px-1 py-1 text-sm text-black sm:px-2 sm:py-2 sm:text-sm w-2/5' type="text" placeholder='Search items in Daraz.pk' />
-
 
             <div className="items hidden [&>div]:cursor-pointer  flex-col space-y-1 sm:space-y-0 md:flex sm:space-x-8 sm:flex-row justify-evenly items-start sm:items-center ">
                 <Link to={'/'} className="item">Home</Link>
@@ -50,7 +52,9 @@ export default function Navbar() {
                 }
                 <div className="flex space-x-4 flex-row  items-center justify-center">
                     <div className="cart">
-                        <CartDrawer />
+                        <Suspense>
+                            <CartDrawer />
+                        </Suspense>
                     </div>
                     <Avatar size={'sm'} name={user?.name} src={user?.pic} />
                 </div>
@@ -67,7 +71,7 @@ export default function Navbar() {
                     <div onClick={() => {
                         setSidebar(false)
                     }} className="absolute top-4 right-4">
-                        <IoClose />
+                        <AiOutlineClose />
                     </div>
                     <Link onClick={() => {
                         setSidebar(false)
@@ -95,14 +99,18 @@ export default function Navbar() {
                     }
                     <div className="flex text-4xl space-x-6 flex-row  items-center justify-center">
                         <div className="cart ">
-                            <CartDrawer mobile={true} />
+                            <Suspense fallback={<>Rendering cart...</>}>
+                                <CartDrawer mobile={true} />
+                            </Suspense>
                         </div>
                         <Avatar size={'lg'} name={user?.name} src={user?.pic} />
                     </div>
                 </div>
             }
-
-            <CreateProductModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+            <Suspense fallback={<>Opening modal..</>}>
+                <CreateProductModal isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+            </Suspense>
         </div>
+
     )
 }
