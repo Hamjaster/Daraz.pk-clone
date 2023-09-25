@@ -26,8 +26,8 @@ export const ContextProvider = ({ children }) => {
     const [orderInfo, setOrderInfo] = useState({})
     const [orders, setOrders] = useState([])
     const [sidebar, setSidebar] = useState(false)
-    // const proxy = 'https://daraz-pk-clone-api.vercel.app'
-    const proxy = 'http://127.0.0.1:5000'
+    const proxy = 'https://daraz-pk-clone-api.vercel.app'
+    // const proxy = 'htt/p://127.0.0.1:5000'
 
     const closeDrawer = () => {
         setIsDrawerOpen(false)
