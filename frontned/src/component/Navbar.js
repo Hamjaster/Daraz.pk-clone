@@ -32,9 +32,11 @@ export default function Navbar() {
                 <img src={icon} alt="" srcset="" className='w-28' />
             </div>
 
+
             <input value={keyword} onChange={(e) => {
                 setKeyword(e.target.value)
             }} className='outline-none border-none px-1 py-1 text-sm text-black sm:px-2 sm:py-2 sm:text-sm w-2/5' type="text" placeholder='Search items in Daraz.pk' />
+
 
             <div className="items hidden [&>div]:cursor-pointer  flex-col space-y-1 sm:space-y-0 md:flex sm:space-x-8 sm:flex-row justify-evenly items-start sm:items-center ">
                 <Link to={'/'} className="item">Home</Link>

@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/react'
 import React, { useContext } from 'react'
-import { MdDelete } from 'react-icons/md'
+import { MdDelete } from 'react-icons/md/'
 import { Context } from '../../context/contextApi'
 
 export default function CartProduct({ name, price, img, quantity, id }) {

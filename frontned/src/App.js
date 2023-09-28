@@ -5,6 +5,7 @@ import ProtectedRoute from './component/Route/ProtectedRoute';
 import { loadStripe } from '@stripe/stripe-js';
 import { Context } from './context/contextApi';
 import { Route, Routes } from 'react-router-dom';
+import { Spinner } from '@chakra-ui/react'
 
 // Lazily loaded components
 const Home = React.lazy(() => import('./pages/Home'));
@@ -22,7 +23,11 @@ export default function App() {
 
     return (
         <div>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={
+                <div className='flex items-center justify-center h-screen'>
+                    <Spinner color='orange.500' size={'xl'} thickness='5px' />
+                </div>
+            }>
                 <Navbar />
                 <Routes>
                     <Route path='/' element={<Home />} />
